@@ -10,7 +10,7 @@
 #' (min, max, 1st and 3rd quartils, median and mean), and the temporal resolution of each fossil record (Ma).
 #' @export 
 #' @examples \dontrun{
-#' data<- pbdb_occurrences (taxa= "Canidae", time= "Quaternary")
+#' data<- pbdb_occurrences (taxon_name= "Canidae", interval= "Quaternary")
 #' pbdb_temporal_resolution (data)
 #'}
 
@@ -57,7 +57,7 @@ pbdb_temporal_resolution<- function (data, do.plot=TRUE) {
 #' @examples \dontrun{
 #' canis_quaternary<- pbdb_occurrences (limit="all", base_name="Canis", 
 #'                  interval="Quaternary", show=c("coords", "phylo", "ident"))
-#' pbdb_temp_range (canis_quaternary, rank="species", names=TRUE)
+#' pbdb_temp_range (canis_quaternary, rank="species", names=FALSE)
 #'}
   
 
@@ -179,24 +179,25 @@ pbdb_temp_range<- function (data, rank,
   if (do.plot==TRUE){
     pos<- c(1:dim (temporal_range)[1]-0.9)
     t_range<- cbind (temporal_range, pos)
-  par(mar = c(4, 0, 1, 0))
-  plot(c(min (t_range$max), max (t_range$max)),
-       c(0, dim (t_range)[1]), 
-       type = "n",axes = FALSE, 
-       xlab = "Time (Ma)", ylab = "", 
-       xlim=c(max (t_range$max), min (t_range$max)))
-  segments(x0 = t_range$min,
-           y0 = t_range$pos,
-           x1 = t_range$max,
-           y1 = t_range$pos,
-           col = col,
-           lwd = 6,
-           lend = 2)
-  axis(1, col="gray30", cex.axis=0.8)  
-  if (names==TRUE){
-    text(x = t_range$min, y = t_range$pos +0.3,
-         labels = row.names (t_range), adj=c(0,0), cex=0.8, col="gray30")
-  }
+    par(mar = c(4, 0, 1, 15))
+    plot(c(min (t_range$max), max (t_range$max)),
+         c(0, dim (t_range)[1]), 
+         type = "n",axes = FALSE, 
+         xlab = "Time (Ma)", ylab = "", 
+         xlim=c(max (t_range$max), min (t_range$max)))
+    segments(x0 = t_range$min,
+             y0 = t_range$pos,
+             x1 = t_range$max,
+             y1 = t_range$pos,
+             col = col,
+             lwd = 6,
+             lend = 2)
+    axis(1, col="gray30", cex.axis=0.8)  
+    if (names==TRUE){
+      text(x = t_range$min - 0.3, y = t_range$pos,
+      labels = row.names (t_range), adj=c(0,0), 
+      cex=0.5, col="gray30") 
+    }
   }
   
   return (temporal_range)
@@ -250,9 +251,9 @@ pbdb_richness <- function (data, rank,
   a<- cbind (a,b)
   richness<- colSums (a+0, na.rm=T)
   labels1<- paste (time[-length (time)], time[-1], sep="-")
-  labels2<- c(labels1, paste (">", max(te), sep=""))
-  labels2[1]<- paste ("<=", time[2], sep="") 
-  richness<- data.frame (labels2, richness)
+  time_interval<- c(labels1, paste (">", max(te), sep=""))
+  time_interval[1]<- paste ("<=", time[2], sep="") 
+  richness<- data.frame (time_interval, richness)
   if (do.plot==TRUE) {
   plot.new()
   par (mar=c(5,5,1,5), font.lab=1, col.lab="grey20", col.axis="grey50", 
@@ -267,8 +268,8 @@ pbdb_richness <- function (data, rank,
   yy = c(0, richness[,2], 0)
   polygon(xx, yy, col=colour, border=bord)
  
-  axis(1, line=1, las=2, labels=labels2, 
-       at=c(0:(length (labels2)-1)))
+  axis(1, line=1, las=2, labels=time_interval, 
+       at=c(0:(length (time_interval)-1)))
   axis(2, line=1, las=1)
   mtext("Million years before present", line=3.5, adj=1, side=1)
   mtext("Richness", line= 3.5 , adj=0, side=2)
@@ -371,7 +372,7 @@ pbdb_orig_ext<- function (data, rank, temporal_extent,
     axis(1, line=1, labels=labels2, at=c(1:length (labels2)))
     axis(2, line=1, las=1)
     mtext("Million years before present", line=3, adj=1, side=1)
-    mtext(rank, line= 3 , adj=0, side=2)
+    mtext(paste ("Number of ", rank, sep=""), line= 3 , adj=0, side=2)
     title (ifelse (orig_ext==1,"First appearences", "Last appearences"))
     }
   return (change)

@@ -15,7 +15,7 @@
 #' @examples \dontrun{
 #' canidae_quat<-  pbdb_occurrences (limit="all", 
 #' base_name="Canidae",  interval="Quaternary", 
-#' show=c("coords", "phylo", "ident")
+#' show=c("coords", "phylo", "ident"))
 #' pbdb_subtaxa (canidae_quat)
 #'}
 #'
@@ -38,7 +38,7 @@ if (do.plot==TRUE){
            beside = T, horiz=F,
            col=col,
            border=F,
-           las=2)
+           las=2, ylab="Number of taxa")
 }
   return (subtaxa)
 }
