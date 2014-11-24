@@ -30,7 +30,7 @@ library(paleobioDB)
 
 **General overview**
 
-`paleobioDB` version 0.2 has 19 functions to wrap each endpoint of the PaleobioDB API, plus 8 functions to visualize and process the fossil data. The API documentation for the Paleobiology Database can be found [here](http://paleobiodb.org/data1.1/).
+`paleobioDB` version 0.3 has 19 functions to wrap each endpoint of the PaleobioDB API, plus 8 functions to visualize and process the fossil data. The API documentation for the Paleobiology Database can be found [here](http://paleobiodb.org/data1.1/).
 
 ## Download fossil occurrences from the PaleobioDB
 
@@ -55,7 +55,7 @@ head(canidae)
 ## 192926  occurrence         19617        Canis edwardii    species    44838
 ## 192927  occurrence         19617 Canis armbrusteri cf.    species    44827
 ## matched_rank     early_interval    late_interval early_age late_age reference_no
-## 5 Middle Pleistocene Late Pleistocene     0.781   0.0117         4412
+## 5 Middle Pleistocene Late Pleistocene     0.81   0.0117         4412
 ## 5   Late Hemphillian          Blancan    10.300   1.8000         6086
 ## 5   Late Hemphillian          Blancan    10.300   1.8000         6086
 ## 5   Late Hemphillian          Blancan    10.300   1.8000         6086

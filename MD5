@@ -1,5 +1,5 @@
-1ab0845effe0b387cdedb89fce1016df *DESCRIPTION
-5745c8a072d96deecf45be3c7f385fe6 *NAMESPACE
+91f442a78d8522670b327e6dddf4936b *DESCRIPTION
+2654a84552be6d3b6986225cc60b9c24 *NAMESPACE
 b387865e7612f8bcb64436ed4fce69a0 *R/network.R
 19f6525a98fdd2062d034062db7d63db *R/paleobioDB-package.R
 eb7f0797372991e815a30389d0239dc6 *R/pbdb_cache.R
@@ -7,9 +7,9 @@ cb07cef1a503ef73c46c34254ab6cfdd *R/pbdb_geographic_functions.R
 c26180ed92e01f4f7b88169eaea17adb *R/pbdb_querys.R
 02568210e73b7390e5c1749474034885 *R/pbdb_rest_api_setup.R
 f41734ad0c3fbf64a096ddd239ece30e *R/pbdb_taxonomic_functions.R
-88d682cd1fe8a1ac039b629c9a97af21 *R/pbdb_temporal_functions.R
+8e27d9a404215035b05f22dff236fb0c *R/pbdb_temporal_functions.R
 575cf4c8385cff18977cdd7b8132801e *R/rest_api_tools.R
-59f855c4cd87292736baa4fa3dd0f308 *README.md
+794eb9115d22d9aa22f5f2763e0a7ff5 *README.md
 7e05cae1fbb67a3b1b8bd85eec018fc5 *man/paleobioDB.Rd
 ee06ec778f5ad80f8860b89d899534e8 *man/pbdb_collection.Rd
 ad82cf36ab5fb823efaa5f7adc9995fe *man/pbdb_collections.Rd
