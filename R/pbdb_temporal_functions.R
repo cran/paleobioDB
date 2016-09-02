@@ -17,8 +17,8 @@
 
 pbdb_temporal_resolution<- function (data, do.plot=TRUE) {
   if('eag' %in% colnames(data)) {
-  tr<- list (summary=summary (data$eag - data$lag), 
-             temporal_resolution=(data$eag - data$lag))
+    tr<- list (summary=summary (data$eag - data$lag), 
+               temporal_resolution=(data$eag - data$lag))
   }
   
   if('early_age' %in% colnames(data)) {
@@ -28,11 +28,11 @@ pbdb_temporal_resolution<- function (data, do.plot=TRUE) {
   }
   
   if (do.plot ==TRUE) {
-
-  hist (unlist (tr [[2]]), freq=T, col="#0000FF", border=F, 
-        xlim= c(max(unlist (tr [[2]])), 0),
-        breaks= 50, xlab="Temporal resolution of the data (Ma)", 
-        main="", col.lab="grey30", col.axis="grey30", cex.axis=0.8)
+    
+    hist (unlist (tr [[2]]), freq=T, col="#0000FF", border=F, 
+          xlim= c(max(unlist (tr [[2]]), na.rm = TRUE), 0),
+          breaks= 50, xlab="Temporal resolution of the data (Ma)", 
+          main="", col.lab="grey30", col.axis="grey30", cex.axis=0.8)
   }
   return (tr)
 }
@@ -70,49 +70,37 @@ pbdb_temp_range<- function (data, rank,
       stop("ERROR: please, add show=c('phylo', 'ident') to your pbdb_occurrences query")
     }
     if (rank=="species"){ 
-      selection<- data [data$taxon_rank==rank, ]
-      max_sp<- tapply(selection$early_age, list(selection$taxon_no), max)
-      min_sp<- tapply(selection$late_age, list(selection$taxon_no), min)
+      selection<- data [data$matched_rank==rank, ]
+      max_sp<- tapply(selection$early_age, as.character (selection$matched_name), max)
+      min_sp<- tapply(selection$late_age, as.character (selection$matched_name), min)
       temporal_range<- data.frame (max_sp, min_sp)
-      sp_names<- paste (selection$genus_name[match (row.names (temporal_range), 
-                        selection$taxon_no)], 
-                        selection$species_name [match (row.names (temporal_range), 
-                        selection$taxon_no)])
-      if (anyDuplicated(sp_names)){
-        sp<-   toString (unlist (sp_names [which (duplicated (sp_names))]))
-        stop ("The Paleobiology Database has duplicated ids (taxon_no) identyfing 
-              the names of the following species: ",  sp,
-              ". Please, debug your query personally to choose what to do with the problematic data 
-              and re-run the function again.")
-      }
-      row.names (temporal_range)<- sp_names
     }
     
     if (rank=="genus"){
-      max_sp<- tapply(data$early_age, list(data$genus_name), max)
-      min_sp<- tapply(data$late_age, list(data$genus_name), min)
+      max_sp<- tapply(data$early_age, as.character (data$genus), max)
+      min_sp<- tapply(data$late_age, as.character (data$genus), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     
     if (rank=="family"){ 
-      max_sp<- tapply(data$early_age, list(data$family), max)
-      min_sp<- tapply(data$late_age, list(data$family), min)
+      max_sp<- tapply(data$early_age, as.character (data$family), max)
+      min_sp<- tapply(data$late_age, as.character (data$family), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     if (rank=="order"){ 
-      max_sp<- tapply(data$early_age, list(data$order), max)
-      min_sp<- tapply(data$late_age, list(data$order), min)
+      max_sp<- tapply(data$early_age, as.character (data$order), max)
+      min_sp<- tapply(data$late_age, as.character (data$order), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     if (rank=="class"){ 
-      max_sp<- tapply(data$early_age, list(data$class), max)
-      min_sp<- tapply(data$late_age, list(data$class), min)
+      max_sp<- tapply(data$early_age, as.character (data$class), max)
+      min_sp<- tapply(data$late_age, as.character (data$class), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     
     if (rank=="phylum"){ 
-      max_sp<- tapply(data$early_age, list(data$phylum), max)
-      min_sp<- tapply(data$late_age, list(data$phylum), min)
+      max_sp<- tapply(data$early_age, as.character (data$phylum), max)
+      min_sp<- tapply(data$late_age, as.character (data$phylum), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     
@@ -123,51 +111,37 @@ pbdb_temp_range<- function (data, rank,
       stop("ERROR: please, add show=c('phylo', 'ident') to your pbdb_occurrences query")
     }
     if (rank=="species"){ 
-      selection<- data [data$rnk==3, ]
-      max_sp<- tapply(selection$eag, list(selection$tid), max)
-      min_sp<- tapply(selection$lag, list(selection$tid), min)
+      selection<- data [data$mra==3, ]
+      max_sp<- tapply(selection$eag, as.character (selection$mna), max)
+      min_sp<- tapply(selection$lag, as.character (selection$mna), min)
       temporal_range<- data.frame (max_sp, min_sp)
-      sp_names<- paste (selection$idt[match (row.names (temporal_range), 
-                                                               selection$tid)], 
-                                          selection$ids [match (row.names (temporal_range), 
-                                                                selection$tid)])
-   
-      if (anyDuplicated(sp_names)){
-        sp<- toString (unlist (sp_names [which (duplicated (sp_names))]))
-        stop ("The Paleobiology Database has duplicated ids (taxon_no) identyfing 
-              the names of the following species: ",  
-                    sp,
-                    ". Please, debug your query personally to choose what to do with the problematic data 
-              and re-run the function again.")
-      }
-      row.names (temporal_range)<- sp_names
     }
     
     if (rank=="genus"){
-      max_sp<- tapply(data$eag, list(data$idt), max)
-      min_sp<- tapply(data$lag, list(data$idt), min)
+      max_sp<- tapply(data$eag,as.character (data$gnl), max)
+      min_sp<- tapply(data$lag, as.character (data$gnl), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     
     if (rank=="family"){ 
-      max_sp<- tapply(data$eag, list(data$fml), max)
-      min_sp<- tapply(data$lag, list(data$fml), min)
+      max_sp<- tapply(data$eag, as.character (data$fml), max)
+      min_sp<- tapply(data$lag, as.character (data$fml), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     if (rank=="order"){ 
-      max_sp<- tapply(data$eag, list(data$odl), max)
-      min_sp<- tapply(data$lag, list(data$odl), min)
+      max_sp<- tapply(data$eag, as.character (data$odl), max)
+      min_sp<- tapply(data$lag, as.character (data$odl), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     if (rank=="class"){ 
-      max_sp<- tapply(data$eag, list(data$cll), max)
-      min_sp<- tapply(data$lag, list(data$cll), min)
+      max_sp<- tapply(data$eag, as.character (data$cll), max)
+      min_sp<- tapply(data$lag, as.character (data$cll), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     
     if (rank=="phylum"){ 
-      max_sp<- tapply(data$eag, list(data$phl), max)
-      min_sp<- tapply(data$lag, list(data$phl), min)
+      max_sp<- tapply(data$eag, as.character (data$phl), max)
+      min_sp<- tapply(data$lag, as.character (data$phl), min)
       temporal_range<- data.frame (max_sp, min_sp)
     }
     
@@ -237,45 +211,46 @@ pbdb_richness <- function (data, rank,
                            bord="#0000FF", 
                            do.plot=TRUE){
   
- temporal_range<- pbdb_temp_range (data=data, rank=rank,do.plot=FALSE)
-  
+  temporal_range<- pbdb_temp_range (data=data, rank=rank,do.plot=FALSE)
   te<- temporal_extent
   time<- seq (from=min(te), to= (max(te)), by=res)
   
-  a<- temporal_range [,2]<=min(te)
-  for (i in 2:(length (time)-1)) {
+  means<- NULL
+  for (i in 1:length (time)-1){
+    x<- (time [i +1] + time [i])/2
+    means<- c(means, x)
+  }
+  a<- NULL
+  for (i in 1:(length (time)-1)) {
     b<- temporal_range [,1]>time[i] & temporal_range [,2]<=time [i+1]
     a<- cbind (a,b)
   }
-  b<- temporal_range [,1] > max(te)
-  a<- cbind (a,b)
-  richness<- colSums (a+0, na.rm=T)
-  labels1<- paste (time[-length (time)], time[-1], sep="-")
-  time_interval<- c(labels1, paste (">", max(te), sep=""))
-  time_interval[1]<- paste ("<=", time[2], sep="") 
-  richness<- data.frame (time_interval, richness)
-  if (do.plot==TRUE) {
-  plot.new()
-  par (mar=c(5,5,1,5), font.lab=1, col.lab="grey20", col.axis="grey50", 
-       cex.axis=0.8)
-  plot.window(xlim=c(max (te),min(te)), xaxs="i",
-              ylim=c(0,(max(richness [,2]))+(max(richness [,2])/10)), yaxs="i")
   
-  abline(v=seq(min(te), max(te), by=1), col="grey90", lwd=1)
-  abline(h=seq(0, max(richness [,2])+(max(richness [,2])/10), 
-               by=(max(richness [,2])/10)), col="grey90", lwd=1)
-  xx = c(min(te), time, max(te))
-  yy = c(0, richness[,2], 0)
-  polygon(xx, yy, col=colour, border=bord)
- 
-  axis(1, line=1, las=2, labels=time_interval, 
-       at=c(0:(length (time_interval)-1)))
-  axis(2, line=1, las=1)
-  mtext("Million years before present", line=3.5, adj=1, side=1)
-  mtext("Richness", line= 3.5 , adj=0, side=2)
+  richness<- colSums (a+0, na.rm=T)
+  temporal_intervals<- paste (time[-length (time)], time[-1], sep="-")
+  richness<- data.frame (temporal_intervals, richness)
+  if (do.plot==TRUE) {
+    plot.new()
+    par (mar=c(5,5,1,5), font.lab=1, col.lab="grey20", col.axis="grey50", 
+         cex.axis=0.8)
+    plot.window(xlim=c(max (te),min(te)), xaxs="i",
+                ylim=c(0,(max(richness [,2]))+(max(richness [,2])/10)), yaxs="i")
+    
+    abline(v=seq(min(te), max(te), by=res), col="grey90", lwd=1)
+    abline(h=seq(0, max(richness [,2])+(max(richness [,2])/10), 
+                 by=(max(richness [,2])/10)), col="grey90", lwd=1)
+    xx <- c(means [1], means, means [length (means)])
+    yy <- c(0, richness[,2], 0)
+    polygon(xx, yy, col=colour, border=bord)
+    axis(1, line=1, las=2, labels=temporal_intervals, 
+         at=means)
+    axis(2, line=1, las=1)
+    mtext("Million years before present", line=3.5, adj=1, side=1)
+    mtext("Richness", line= 3.5 , adj=0, side=2)
   }
   return (richness)
 }
+
 
 
 #' pbdb_orig_ext
@@ -317,9 +292,9 @@ pbdb_richness <- function (data, rank,
 
 
 pbdb_orig_ext<- function (data, rank, temporal_extent, 
-                     res, orig_ext=1, 
-                     colour="#0000FF30", bord="#0000FF", 
-                     do.plot=TRUE) { 
+                          res, orig_ext=1, 
+                          colour="#0000FF30", bord="#0000FF", 
+                          do.plot=TRUE) { 
   
   temporal_range<- pbdb_temp_range (data=data, rank=rank, do.plot=FALSE)
   te<- temporal_extent
@@ -334,26 +309,37 @@ pbdb_orig_ext<- function (data, rank, temporal_extent,
   res_sp<- list ()
   for (i in 1:dim(intv)[1])
   {
-  intvv<- intv [i,]
-  sps<-temporal_range [unlist (which (intvv$max <=temporal_range$max & 
-                           intvv$min >=temporal_range$min)),]
-  res_sp[[i]]<- sps
+    intvv<- intv [i,]
+    cases1<-  which (as.numeric (temporal_range$min)>= intvv$min &
+                       as.numeric (temporal_range$min)<= intvv$max &
+                       as.numeric (temporal_range$max)>= intvv$max)
+    
+    cases2<-  which (as.numeric (temporal_range$min)<= intvv$min &
+                       as.numeric (temporal_range$max)<= intvv$max &
+                       as.numeric (temporal_range$max)>= intvv$min)
+    
+    cases3<-  which (as.numeric (temporal_range$min)<= intvv$min &
+                       as.numeric (temporal_range$max)>= intvv$max)
+    
+    cases<- unique (c(cases1, cases2, cases3))
+    sps<-temporal_range [cases,]
+    res_sp[[i]]<- sps
   }
   
   change<- data.frame ()
   for (i in length (res_sp):2)
   {
-  new<- length (setdiff (row.names (res_sp[[i-1]]), row.names (res_sp[[i]])))
-  ext<- length (setdiff (row.names (res_sp[[i]]), row.names (res_sp[[i-1]])))
-  col<- c(new, ext)
-  change<- rbind (change, col)
+    new_taxa<- length (setdiff (row.names (res_sp[[i-1]]), row.names (res_sp[[i]])))
+    ext<- length (setdiff (row.names (res_sp[[i]]), row.names (res_sp[[i-1]])))
+    col<- c(new_taxa, ext)
+    change<- rbind (change, col)
   }  
   
   names (change)<- c("new", "ext")
-  change<- change[order(rev (row.names(change))),]
+  change<- change[rev(as.numeric (row.names(change))),]
   row.names (change)<- labels2
   
-    if (do.plot==TRUE){
+  if (do.plot==TRUE){
     ymx<- max (change[,orig_ext])
     ymn<- min (change[,orig_ext])
     xmx<- sequence[length (sequence)-1]
@@ -362,20 +348,18 @@ pbdb_orig_ext<- function (data, rank, temporal_extent,
     par (mar=c(5,5,2,5),font.lab=1, col.lab="grey20", col.axis="grey50", cex.axis=0.8)
     plot.window(xlim=c(xmx, xmn), xaxs="i",
                 ylim=c(ymn,ymx), yaxs="i")
-    abline(v=seq(xmn, xmx, by=1), col="grey90", lwd=1)
+    abline(v=seq(xmn, xmx, by=res), col="grey90", lwd=1)
     abline(h=seq(0, ymx, 
                  by=(ymx/10)), col="grey90", lwd=1)
     xx <- c(xmn,  sequence[2:(length (sequence)-1)], xmx)
     yy <- c(0, change[,orig_ext], 0)
     polygon(xx, yy, col=colour, border=bord)
     
-    axis(1, line=1, labels=labels2, at=c(1:length (labels2)))
+    axis(1, line=1, labels=labels2, at= xx [-c(1,length (xx))])
     axis(2, line=1, las=1)
     mtext("Million years before present", line=3, adj=1, side=1)
     mtext(paste ("Number of ", rank, sep=""), line= 3 , adj=0, side=2)
     title (ifelse (orig_ext==1,"First appearences", "Last appearences"))
-    }
+  }
   return (change)
 }
-
-

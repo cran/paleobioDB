@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/ropensci/paleobioDB.svg)](https://travis-ci.org/ropensci/paleobioDB)
 
+[![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/paleobioDB)](https://github.com/metacran/cranlogs.app)
+[![cran version](https://www.r-pkg.org/badges/version/paleobioDB)](https://cran.r-project.org/package=paleobioDB)
+
+
 paleobioDB
 =======
 
@@ -30,7 +34,7 @@ library(paleobioDB)
 
 **General overview**
 
-`paleobioDB` version 0.3 has 19 functions to wrap each endpoint of the PaleobioDB API, plus 8 functions to visualize and process the fossil data. The API documentation for the Paleobiology Database can be found [here](http://paleobiodb.org/data1.1/).
+`paleobioDB` version 0.4 has 19 functions to wrap each endpoint of the PaleobioDB API, plus 8 functions to visualize and process the fossil data. The API documentation for the Paleobiology Database can be found [here](http://paleobiodb.org/data1.1/).
 
 ## Download fossil occurrences from the PaleobioDB
 

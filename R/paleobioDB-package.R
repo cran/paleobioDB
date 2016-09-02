@@ -30,8 +30,8 @@
 #' @details \tabular{ll}{
 #' Package: \tab paleobioDB\cr
 #' Type: \tab Package\cr
-#' Version: \tab 0.1\cr
-#' Date: \tab 2014-04-04\cr
+#' Version: \tab 0.4\cr
+#' Date: \tab 2015-07-16\cr
 #' License: \tab GPL-2\cr
 #' }
 #' 
@@ -40,6 +40,9 @@
 #' }
 #' 
 #' @import rjson gtools RCurl plyr raster maps scales 
+#' @importFrom grDevices colorRampPalette
+#' @importFrom graphics abline axis legend mtext par plot.new plot.window points polygon rect segments title
+#' @importFrom utils URLencode
 #' 
 #'@examples \dontrun{
 #'
