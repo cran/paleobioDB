@@ -26,7 +26,7 @@
 
 .extract_response_body<-function(response){
 	
-	sp<-strsplit(response, '\r\n\r\n')[[1]]
+	sp<-strsplit(response, '\r\n\r\n', fixed=TRUE)[[1]]
 	header<-sp[[1]]
 	status <- substring(header, 10, 12)
   
@@ -77,7 +77,7 @@
     if (first_line) {
       df<- as.data.frame(reg)
     } else {
-      df<- smartbind(df, reg)
+      df<- smartbind(df, as.data.frame(reg))
     }
     
     first_line <- FALSE

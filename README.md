@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/ropensci/paleobioDB.svg)](https://travis-ci.org/ropensci/paleobioDB)
-
+[![codecov.io](https://codecov.io/github/ropensci/paleobioDB/coverage.svg?branch=master)](https://codecov.io/github/ropensci/paleobioDB?branch=master)
 [![rstudio mirror downloads](http://cranlogs.r-pkg.org/badges/paleobioDB)](https://github.com/metacran/cranlogs.app)
-[![cran version](https://www.r-pkg.org/badges/version/paleobioDB)](https://cran.r-project.org/package=paleobioDB)
+[![cran version](https://www.r-pkg.org/badges/version/paleobioDB)](https://cran.r-project.org/web/packages/paleobioDB/)
 
 
 paleobioDB
@@ -34,7 +34,7 @@ library(paleobioDB)
 
 **General overview**
 
-`paleobioDB` version 0.4 has 19 functions to wrap each endpoint of the PaleobioDB API, plus 8 functions to visualize and process the fossil data. The API documentation for the Paleobiology Database can be found [here](http://paleobiodb.org/data1.1/).
+`paleobioDB` version 0.5 has 19 functions to wrap each endpoint of the PaleobioDB API, plus 8 functions to visualize and process the fossil data. The API documentation for the Paleobiology Database can be found [here](http://paleobiodb.org/data1.1/).
 
 ## Download fossil occurrences from the PaleobioDB
 
@@ -104,7 +104,7 @@ Returns a map with the species occurrences.
 ```coffee
 > pbdb_map(canidae)
 ``` 
-![plot of chunk map](figure/pbdb_map.png) 
+![plot of chunk map](man/figure/pbdb_map.png)
 
 
 **pbdb_map_occur**
@@ -124,7 +124,7 @@ Returns a map and a raster object with the sampling effort (number of fossil rec
 ## values      : 1, 40  (min, max)
 ``` 
 
-![plot of chunk map](figure/pbdb_map_occur.png) 
+![plot of chunk map](man/figure/pbdb_map_occur.png)
 
 
 **pbdb_map_richness**
@@ -144,7 +144,7 @@ Returns a map and a raster object with the number of different species, genera, 
 ## values      : 1, 12  (min, max)
 ```
 
-![plot of chunk map](figure/pbdb_map_occur.png) 
+![plot of chunk map](man/figure/pbdb_map_occur.png)
 
 
 ## Explore your fossil data 
@@ -168,7 +168,7 @@ Returns a dataframe and a plot with the time span of the species, genera, famili
 ...
 
 ``` 
-![plot temprange](figure/pbdb_temporal_range.png) 
+![plot temprange](man/figure/pbdb_temporal_range.png)
 
 
 
@@ -194,7 +194,7 @@ Returns a dataframe and a plot with the number of species (or genera, families, 
 ## 9-10       0
 ## >10        0
 ``` 
-![plot richness](figure/pbdb_richness.png) 
+![plot richness](man/figure/pbdb_richness.png)
 
 
 **pbdb_orig_ext**
@@ -218,7 +218,7 @@ Returns a dataframe and a plot with the number of new appearances and last appea
 ## 9-10 to 8-9   0   0
 ```
 
-![plot of chunk map](figure/pbdb_orig_ext_1.png)
+![plot of chunk map](man/figure/pbdb_orig_ext_1.png)
 
 
 ```coffee
@@ -238,7 +238,7 @@ pbdb_orig_ext(canidae, rank="species", orig_ext=2, temporal_extent=c(0,10), res=
 ## 9-10 to 8-9   0   0
 ``` 
 
-![plot of chunk map](figure/pbdb_orig_ext_2.png)
+![plot of chunk map](man/figure/pbdb_orig_ext_2.png)
 
 **pbdb_subtaxa**
 
@@ -251,7 +251,7 @@ Returns a plot and a dataframe with the number of species, genera, families, etc
 ## species genera families orders classes phyla
 ## 75     24        1      1       1     1
 ```
-![plot subtaxa](figure/pbdb_subtaxa.png) 
+![plot subtaxa](man/figure/pbdb_subtaxa.png)
 
 
 **pbdb_temporal_resolution**
@@ -277,7 +277,7 @@ Returns a plot and a dataframe with a main summary of the temporal resolution of
 ...
   
 ```
-![plot tempres](figure/pbdb_temporal_resolution.png) 
+![plot tempres](man/figure/pbdb_temporal_resolution.png)
 
 ## Meta
 
@@ -290,7 +290,7 @@ To cite package `paleobioDB` in publications use:
 ```coffee
 To cite package `paleobioDB` in publications use:
 
-Sara Varela, Javier Gonzalez-Hernandez and Luciano Fabris Sgarbi (2014). paleobioDB: an R-package for downloading, visualizing and processing data from the Paleobiology Database. R package version 0.1. https://github.com/ropensci/paleobioDB
+Sara Varela, Javier Gonzalez-Hernandez and Luciano Fabris Sgarbi (2016). paleobioDB: an R-package for downloading, visualizing and processing data from the Paleobiology Database. R package version 0.5. https://github.com/ropensci/paleobioDB
 
 A BibTeX entry for LaTeX users is
 
@@ -298,7 +298,7 @@ A BibTeX entry for LaTeX users is
     title = {paleobioDB: an R-package for downloading, visualizing and processing data from the Paleobiology Database},
     author = {{Sara Varela} and {Javier Gonzalez-Hernandez} and {Luciano Fabris Sgarbi}},
     year = {2014},
-    note = {R package version 0.1},
+    note = {R package version 0.5},
     base = {https://github.com/ropensci/paleobioDB},
   }
 ```
