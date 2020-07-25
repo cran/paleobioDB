@@ -7,8 +7,8 @@ Encoding: UTF-8
 Type: Package
 License: GPL-2
 Title: Download and Process Data from the Paleobiology Database
-Version: 0.6.0
-Date: 2019-02-23
+Version: 0.7.0
+Date: 2020-07-22
 Authors@R: c(person("Sara", "Varela", role = c("aut", "cre"),
     email = "svarela@paleobiogeography.org"),
     person("Javier", "González Hernández", role = "aut",
@@ -17,7 +17,8 @@ Authors@R: c(person("Sara", "Varela", role = c("aut", "cre"),
     email = "luciano.f.sgarbi@gmail.com"))
 Maintainer: Sara Varela <svarela@paleobiogeography.org>
 BugReports: https://github.com/ropensci/paleobioDB/issues
-URL: https://github.com/ropensci/paleobioDB
+URL: https://docs.ropensci.org/paleobioDB,
+        https://github.com/ropensci/paleobioDB
 LazyData: true
 Imports: rjson, gtools, RCurl, plyr, scales
 Depends: raster, maps
@@ -28,9 +29,9 @@ Collate: 'network.R' 'paleobioDB-package.R' 'pbdb_cache.R'
         'pbdb_taxonomic_functions.R' 'pbdb_temporal_functions.R'
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2019-02-26 01:49:37 UTC; root
+Packaged: 2020-07-25 19:53:39 UTC; root
 Author: Sara Varela [aut, cre],
   Javier González Hernández [aut],
   Luciano Fabris Sgarbi [aut]
 Repository: CRAN
-Date/Publication: 2019-02-26 07:20:02 UTC
+Date/Publication: 2020-07-25 21:40:02 UTC
